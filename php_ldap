@@ -1,0 +1,28 @@
+<?php
+//Connect to LDAP server.
+
+$ds=ldap_connect( "localhost");
+ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+if ($ds) {
+    //Using the provided user and password to login into LDAP server.
+    //For the dc, normally will be the domain.
+    $r=ldap_bind($ds, "cn=Manager,dc=maxcrc,dc=com", "secret");
+ 
+    // You may add in any filter part on here. "uid" is a profile data inside the LDAP. You may filter by other columns depends on your LDAP setup.
+    $sr=ldap_search($ds, "dc=maxcrc,dc=com", "uid=nithin");
+ 
+    $info = ldap_get_entries($ds, $sr);
+ 
+    for ($i=0; $i<$info["count"]; $i++) {
+        //Print out the user information here. For those uid, displayname, userprincipalname and emailaddress are those data inside a user profile. It will be different for your LDAP setup.
+        echo "uid is: " . $info[$i]["uid"][0] . "\n";
+        echo "displayName entry is: " . $info[$i]["displayname"][0] . "\n";
+        echo "Login shell is : ".$info[$i]["loginshell"][0]."\n";
+        echo "useremail entry is: " . $info[$i]["mail"][0] . "\n";
+    }
+    ldap_close($ds);
+} else {
+    echo "<h4>Unable to connect to LDAP server</h4>";
+}
+ 
+?>
