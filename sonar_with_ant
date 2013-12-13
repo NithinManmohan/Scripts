@@ -1,0 +1,15 @@
+  <!-- Define the SonarQube project properties -->
+	<property name="sonar.projectKey" value="org:jpetstore" />
+	<property name="sonar.projectName" value="Simple Java Project analyzed with the SonarQube Ant Task" />
+	<property name="sonar.projectVersion" value="1.0" />
+	<property name="sonar.language" value="java" />
+	<property name="sonar.sources" value="src" />
+	
+
+    
+  <target name="sonar">
+    <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml" >
+        <classpath path="C:\Softwares\apache-ant-1.9.2\lib\sonar-ant-task-1.3.jar"/>
+	</taskdef>
+    <sonar:sonar version="0.1-SNAPSHOT" key="myGroup:myArtifact" xmlns:sonar="antlib:org.sonar.ant"/>
+</target>
