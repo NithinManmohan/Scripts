@@ -1,0 +1,42 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class JExcel {
+
+	public static void main(String[] args) throws Exception {
+
+		// Write to Excel
+
+		InputStream inp = new FileInputStream("C:\\work\\29thApril.xlsx");
+		Workbook wb = WorkbookFactory.create(inp);
+
+		Sheet sheet = wb.getSheetAt(0);
+
+		// Get the row
+		Row row = sheet.getRow(3);
+
+		// Get the cell
+		Cell cell = row.getCell(1);
+		// if (cell == null)
+		// cell = row.createCell(3);
+		cell.setCellType(Cell.CELL_TYPE_STRING);
+
+		// Modify the value in the cell
+		cell.setCellValue("testing");
+
+		// Write the output to a file
+		FileOutputStream fileOut = new FileOutputStream(
+				"C:\\work\\workbook.xlsx");
+		wb.write(fileOut);
+		fileOut.close();
+
+	}
+
+}
